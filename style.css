@@ -1,0 +1,119 @@
+@import url('');
+
+html,
+body {
+    height: 100%;
+}
+
+main{
+    background-color: rgb(184, 160, 201);
+}
+
+.greeting,
+p,
+h1,
+h2 {
+    font-family: 'Noto Serif JP', serif;
+}
+
+.flex-contriner {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 5px;
+    height: 100;     
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 3em;
+    padding-left: 10%;
+}
+
+.hi{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-right: 40%;
+}
+
+.about-me{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-left: 10%;
+    
+}
+
+.hi, .about-me{
+    background-color: rgb(167, 109, 218);
+}
+
+.fullname p{
+    font-size: 25px;
+}
+
+.my-img {
+    padding-right: 40px;
+}
+
+
+.knowledge{
+    display: flex;
+    align-items: center;
+    background-color: rgb(185, 133, 233);
+    padding: 10px 50px 10px 10px;
+}
+
+.my-true-knowledge{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 400px;
+  background-color: rgb(146, 90, 197);
+}
+
+.my-new-knowledge{
+    margin-right: 300px;
+}
+
+.free-place{
+    display: flex;
+    max-width: 100px;
+    background-color: rgb(112, 112, 112);
+    margin: 50px 0px;
+    padding: 50px 10px;
+}
+
+
+ul {
+    display: flex;
+    list-style-type: none;
+}
+
+ul li {
+    margin-right: 20px;
+}
+
+li a {
+    text-decoration: none;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.5rem;
+}
+
+.article{
+    font-size: 50px;
+    background-color: rgb(167, 109, 218);
+    padding: 50px;
+}
+
+.footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 30px;
+    
+}
