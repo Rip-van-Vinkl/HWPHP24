@@ -159,18 +159,56 @@ $nameLove = 'Иваня';
 $patronomycLove = 'ивановичвна';
 $personLove = [];
 
-function getPerfectPartner($surnameLove, $nameLove, $patronomycLove)
+
+function getPerfectPartner($surnameLove, $nameLove, $patronomycLove, $example_persons_array)
 {
-    $fullnameLove = ((mb_convert_case(getFullnameFromParts($surnameLove, $nameLove, $patronomycLove), MB_CASE_TITLE_SIMPLE)));
-    $personLove[] = $fullnameLove;
-    if (getGenderFromName($personLove)[0] === 'мужчина') {
-        print_r('ищем бабу!!!');
-    } elseif (getGenderFromName($personLove)[0] === 'женщина') {
-        print_r('ищем мужика!!!');
-    } else {
-        print_r('повезёт в следующий раз...');
+    $trueFullnameOfPersonLove = ((mb_convert_case(getFullnameFromParts($surnameLove, $nameLove, $patronomycLove), MB_CASE_TITLE_SIMPLE)));
+    $personLove[] = $trueFullnameOfPersonLove;
+
+    function getSexOfPersonLove($personLove)
+    {
+        $sexOfPersonLove = '';
+        if (getGenderFromName($personLove)[0] === 'мужчина') {
+            $sexOfPersonLove = 'мужчина';
+        } elseif (getGenderFromName($personLove)[0] === 'женщина') {
+            $sexOfPersonLove = 'женщина';
+        } else {
+            $sexOfPersonLove = 'хз';
+        }
+        return $sexOfPersonLove;
     }
+
+    $sexOfPersonLove = getSexOfPersonLove($personLove);
+
+    function getPartnerForPersonLove($example_persons_array)
+    {
+        $partnerForPersonLove = $example_persons_array[rand(0, count($example_persons_array) - 1)]['fullname'];
+        return $partnerForPersonLove;
+    }
+
+    $fullNameOfPartner = getPartnerForPersonLove($example_persons_array);
+    $partner[] = $fullNameOfPartner;
+    $sexOfPartner = getGenderFromName($partner)[0];
+
+
+    function lastChoice($sexOfPersonLove, $sexOfPartner, $trueFullnameOfPersonLove, $fullNameOfPartner, $example_persons_array)
+    {
+        if ($sexOfPersonLove == $sexOfPartner or $sexOfPersonLove == 'хз' or $sexOfPartner == 'хз') {
+            $fullNameOfPartner = getPartnerForPersonLove($example_persons_array);
+            $partner[] = $fullNameOfPartner;
+            $sexOfPartner = getGenderFromName($partner)[0];
+            lastChoice($sexOfPersonLove, $sexOfPartner, $trueFullnameOfPersonLove, $fullNameOfPartner, $example_persons_array);
+        } else {
+            print_r(getShortName($trueFullnameOfPersonLove) . ' + ' . getShortName($fullNameOfPartner) . ' = ' . 'Идеально на ' . rand(50, 100) . '%'.' ♡♡♡');
+        }
+    }
+
+    lastChoice($sexOfPersonLove, $sexOfPartner, $trueFullnameOfPersonLove, $fullNameOfPartner, $example_persons_array);
 }
 
-getPerfectPartner($surnameLove, $nameLove, $patronomycLove,);
+getPerfectPartner($surnameLove, $nameLove, $patronomycLove, $example_persons_array);
+
+// страшненько, но работает...
+// к сожалению, функция для определения из 4 задания у меня обрабатывала массив и печатала результат, поэтому и в 6 задании вылезают лишние строки
+// не всегда было удобно соблюдать требования из разных заданий, т.к. они мешали друг другу и можно было сделать проще
 ?>
