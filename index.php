@@ -1,89 +1,93 @@
 <?php
 
-interface Go {public function go();}
-interface GoBack {public function goBack();}
-interface Action{public function action();}
-
-interface Signal{public function signal();}
-interface Wipers{public function wipers();}
-
-abstract class Technic implements Go, GoBack, Action
+interface Go
 {
-    public function go()
-    {echo 'еду вперёд';}
+    public static function go();
+}
+interface GoBack
+{
+    public static function goBack();
+}
+interface Action
+{
+    public function action();
+}
+interface Signal
+{
+    public static function signal();
+}
+interface Wipers
+{
+    public static function wipers();
+}
 
-    public function goBack()
-    {echo 'еду назад';}
-
+abstract class Technic implements Go, GoBack, Action, Signal, Wipers
+{
+    public static function go()
+    {
+        echo 'еду вперёд' . "<br>";
+    }
+    public static function goBack()
+    {
+        echo 'еду назад' . "<br>";
+    }
     public function action()
-    {echo $this->action;}
-
-    public function signal()
-    {echo 'биб-бип';}
-
-    public function wipers()
-    {echo 'мою стекло';}
+    {
+        echo $this->action . "<br>";
+    }
+    public static function signal()
+    {
+        echo 'биб-бип' . "<br>";
+    }
+    public static function wipers()
+    {
+        echo 'мою стекло' . "<br>";
+    }
 }
 
 class Car extends Technic
 {
+    protected static $type = 'машина';
     protected $action = 'турбо-ускорение';
     protected $individual = 'могу ездить на спирте';
-    public function goCar() {$this->go();}
-    public function goBackCar() {$this->goBack();}
-    public function actionCar() {$this->action();}
-
-    public function signalCar() {$this->signal();}
-    public function wipersCar() {$this->wipers();}
+    public function actionTechnic()
+    {
+        $this->action();
+    }
+    public function individual()
+    {
+        echo $this->individual . "<br>";
+    }
 }
 
 class Excavator extends Technic
 {
+    protected static $type = 'экскаватор';
     protected $action = 'машу ковшом';
     protected $individual = 'умею закапываться в землю за минуту';
-    public function goExcavator() {$this->go();}
-    public function goBackExcavator() {$this->goBack();}
-    public function actionExcavator() {$this->action();}
-
-    public function signalExcavator() {$this->signal();}
-    public function wipersExcavator() {$this->wipers();}
+    public function actionTechnic()
+    {
+        $this->action();
+    }
+    public function individual()
+    {
+        echo $this->individual . "<br>";
+    }
 }
-
-
 
 $car1 = new Car();
 $go1 = 1;
 $car2 = new Excavator();
 $go2 = -2;
 
-function testTechnic($technic, $go){
-    if ($technic instanceof Car) {
-        if ($go > 0){
-            $technic->goCar();
-        } elseif ($go < 0) {
-            $technic->goBackCar();
-        } else {
-            echo 'стоп машина';
-        }
-        $technic->actionCar();
-        $technic->signalCar();
-        $technic->wipersCar();
-
-    } elseif ($technic instanceof Excavator) {
-        if ($go > 0){
-            $technic->goExcavator();
-        } elseif ($go < 0) {
-            $technic->goBackExcavator();
-        } else {
-            echo 'стоп машина';
-        }
-        $technic->actionExcavator();
-        $technic->signalExcavator();
-        $technic->wipersExcavator();
-
-    } else {
-        echo 'что-то пошло не так';
-    }
+function testTechnic($technic, $go)
+{
+    $go > 0 ? $technic::go() : $technic::goBack();
+    $technic->actionTechnic();
+    $technic::signal();
+    $technic::wipers();
+    $technic->individual();
+    echo "<br>";
 }
 
 testTechnic($car1, $go1);
